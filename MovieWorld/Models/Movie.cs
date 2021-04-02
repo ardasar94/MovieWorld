@@ -23,5 +23,7 @@ namespace MovieWorld.Models
         public string Language { get; set; }
         public string Plot { get; set; }
         public string Country { get; set; }
+
+        public virtual ICollection<ApplicationUser> Fans { get; set; }
     }
 }

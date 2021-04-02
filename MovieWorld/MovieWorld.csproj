@@ -173,15 +173,24 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\Admin\Controllers\MoviesController.cs" />
+    <Compile Include="Areas\Admin\ViewModels\DashboardViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\MovieYearCount.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MoviesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\202103310815239_Initial.cs" />
     <Compile Include="Migrations\202103310815239_Initial.Designer.cs">
       <DependentUpon>202103310815239_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104021010470_MovieFansRelation.cs" />
+    <Compile Include="Migrations\202104021010470_MovieFansRelation.Designer.cs">
+      <DependentUpon>202104021010470_MovieFansRelation.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -191,6 +200,9 @@
     <Compile Include="Models\Movie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Utilities\WebUtilities.cs" />
+    <Compile Include="ViewModels\HomeViewModel.cs" />
+    <Compile Include="ViewModels\PaginationInfoViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\dist\css\adminlte.css" />
@@ -2076,6 +2088,7 @@
     <Content Include="Areas\Admin\plugins\uplot\uPlot.iife.js" />
     <Content Include="Areas\Admin\plugins\uplot\uPlot.iife.min.js" />
     <Content Include="Areas\Admin\plugins\uplot\uPlot.min.css" />
+    <Content Include="Content\album.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -2168,6 +2181,7 @@
     <Content Include="Areas\Admin\plugins\summernote\summernote.js.map" />
     <Content Include="Areas\Admin\plugins\summernote\summernote.min.js.map" />
     <Content Include="Areas\Admin\plugins\toastr\toastr.js.map" />
+    <Content Include="Areas\Admin\Views\Movies\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2213,11 +2227,15 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\_LayoutHome.cshtml" />
+    <Content Include="Views\Shared\_LoginPartialHome.cshtml" />
+    <Content Include="Views\Movies\Favorites.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Views\Base\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -2235,6 +2253,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202103310815239_Initial.resx">
       <DependentUpon>202103310815239_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104021010470_MovieFansRelation.resx">
+      <DependentUpon>202104021010470_MovieFansRelation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
