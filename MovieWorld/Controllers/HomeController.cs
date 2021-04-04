@@ -10,7 +10,7 @@ namespace MovieWorld.Controllers
 {
     public class HomeController : BaseController
     {       
-        public ActionResult Index(int page = 1)
+        public ActionResult Index(int page = 1, string search = "")
         {
             IQueryable<Movie> query = db.Movies;
             int totalItems = query.Count();
@@ -35,7 +35,15 @@ namespace MovieWorld.Controllers
                     HasPrevious = page > 1
                  }
             };
-
+            if (search != "")
+            {
+                vm.Movies = vm.Movies.Where(x => 
+                x.Title.ToLower().Contains(search.ToLower()) || 
+                x.Genre.ToLower().Contains(search.ToLower()) || 
+                x.Director.ToLower().Contains(search.ToLower()) || 
+                x.Actors.ToLower().Contains(search.ToLower()) ||
+                x.Language.ToLower().Contains(search.ToLower())).ToList();
+            }
             return View(vm);
         }
 

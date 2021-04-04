@@ -8,17 +8,119 @@
 <div class="bg-light py-5">
     <div class="container">
         <h1>My Favorites</h1>
-        <ul class="list-unstyled mt-4">
+        <ul class="list-unstyled mt-4" id="sortable">
             @foreach (var item in Model)
             {
-                <li class="mb-2 clearfix">
-                    <img src="@item.Poster" height="100" class="mr-3 float-left"/>
+                <li class="mb-2 clearfix ui-state-default">
+                    <a href="#" class="btn btn-sm btn-outline-secondary" title="" data-toggle="tooltip" data-selected="" data-fav-id="@item.Id"><i class="fas fa-heart text-danger"></i></a>
+                    <img src="@item.Poster" height="150" class="mr-3 float-left" />
                     <strong>@item.Title </strong> (@item.Year) <br />
                     <small>@item.Actors</small>
+                    <div class="form-check mt-5">
+                        @{ var isWatched = item.IsWatched;
+                            var isChecked = isWatched ? "checked" : "";
+                        }
+                        <input class="form-check-input ml-2" type="checkbox" value="" id=@(isWatched == false ? "flexCheckDefault" : "flexCheckChecked") data-check-id="@item.Id" @isChecked>
+                        <label class="form-check-label ml-5 mt-auto" for=@(isWatched == true ? "flexCheckDefault" : "flexCheckChecked")>
+                            Watched
+                        </label>
+
+                    </div>
                 </li>
             }
         </ul>
     </div>
 </div>
 
+@section scripts{
+    <script>
+        $(function () {
+            $("#sortable").sortable();
+            $("#sortable").disableSelection();
+        });
 
+        $("[data-check-id]").change(function () {
+            console.log("ilk")
+            event.preventDefault();
+            var a = this;
+            var idNo = $(a).data("check-id")
+            var isWatched;
+            if (a.hasAttribute("checked")) {
+                a.removeAttribute("checked")
+                isWatched = false;
+            }
+            else if (!(a.hasAttribute("checked"))) {
+                a.setAttribute("checked","")
+                isWatched = true;
+            }
+            var movie = { Id: idNo, isWatched: isWatched };
+            console.log("iki")
+             $.ajax({
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    url: '@Url.Action("IsWatched", "Movies")',
+                    data: JSON.stringify({ movie : movie }),
+                    success: function (data) {
+                        //do something
+                    },
+                    error: function (e) {
+                        //do something
+                    }
+             });
+        });
+
+        $("[data-fav-id]").click(function (event) {
+            event.preventDefault();
+            var a = this;
+            var movieId = $(a).data("fav-id");
+            $.ajax({
+                    type: "Post",
+                    url: "@Url.Action("RemoveFromFavorites","Movies")",
+                    data: { id: movieId },
+                    success: function (data) {
+                        if (data.success) {
+                            $(a).parent("li").remove();
+                            toastr.success("Removed from the favarites");
+                        }
+                    }
+            });
+        });
+
+
+/*        https://stackoverflow.com/questions/39661264/able-to-save-jquery-sortable-new-order-to-asp-net-mvc-controller*/
+        $('#sortable').sortable({
+        axis: 'y',
+        update: function (event, ui) {
+            console.log("burda")
+            var order = 1;
+            var model = [];
+
+            $("#sortable li").each(function () {
+                var a = $(this).children("a")
+                var idNo = $(a).data("fav-id")
+            //building a new object and pushing in modal array
+            //Here I am setting OrderNo property which is i am using in my db and building my object
+            var objModel = { Id: idNo , FavoritesCount: order }; //This is for example to build your object and push in a modal array.
+            model.push(objModel);
+            order++;
+            });
+
+            if (model.length > 1)
+            {
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    url: '@Url.Action("UpdateStatusOrder", "Movies")', //This is my url put your url here and pass model as data it is an array of my items
+                    data: JSON.stringify({ model : model }),
+                    success: function (data) {
+                        //do something
+                    },
+                    error: function (e) {
+                        //do something
+                    }
+                });
+            }
+        }
+    });
+    </script>
+}

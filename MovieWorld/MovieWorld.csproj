@@ -192,6 +192,14 @@
     <Compile Include="Migrations\202104021010470_MovieFansRelation.Designer.cs">
       <DependentUpon>202104021010470_MovieFansRelation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104031507257_FavCounts.cs" />
+    <Compile Include="Migrations\202104031507257_FavCounts.Designer.cs">
+      <DependentUpon>202104031507257_FavCounts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104031711448_IsWatched.cs" />
+    <Compile Include="Migrations\202104031711448_IsWatched.Designer.cs">
+      <DependentUpon>202104031711448_IsWatched.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DbSeed.cs" />
@@ -2256,6 +2264,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104021010470_MovieFansRelation.resx">
       <DependentUpon>202104021010470_MovieFansRelation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104031507257_FavCounts.resx">
+      <DependentUpon>202104031507257_FavCounts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104031711448_IsWatched.resx">
+      <DependentUpon>202104031711448_IsWatched.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

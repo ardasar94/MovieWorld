@@ -2,17 +2,20 @@
 @model HomeViewModel
 @{
     Layout = "~/Views/Shared/_LayoutHome.cshtml";
-ViewBag.Title = "Home Page";
+    ViewBag.Title = "Home Page";
 }
 
-<section class="jumbotron text-center">
+<section class="jumbotron">
     <div class="container">
-        <h1>Movies</h1>
-        <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
-        @*<p>
-                <a href="#" class="btn btn-primary my-2">Main call to action</a>
-                <a href="#" class="btn btn-secondary my-2">Secondary action</a>
-            </p>*@
+        <h1>Movie World</h1>
+        @using (Html.BeginForm("Index","Home",FormMethod.Post, htmlAttributes: new { @class = "form-inline my-2 my-lg-0" }))
+        {
+            <form class="form-inline my-2 my-lg-0">
+                @Html.TextBox("search", null,htmlAttributes: new { @class= "form-control mr-sm-2" })
+                @*<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" value="search">*@
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        }
     </div>
 </section>
 

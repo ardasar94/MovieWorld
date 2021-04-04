@@ -23,6 +23,8 @@ namespace MovieWorld.Models
         public string Language { get; set; }
         public string Plot { get; set; }
         public string Country { get; set; }
+        public int? FavoritesCount { get; set; }
+        public bool IsWatched { get; set; } = false;
 
         public virtual ICollection<ApplicationUser> Fans { get; set; }
     }
